@@ -1,0 +1,93 @@
+.container {
+}
+
+.header {
+	background-color: rgb(26, 9, 48);
+	padding: 2px 48px;
+
+	h1 {
+		color: #fff;
+	}
+}
+
+.main {
+	.userTitle {
+		display: flex;
+		justify-content: center;
+
+		padding: 48px 0 0 0;
+
+		h2 {
+			font-size: 1.6em;
+			margin: 0 0 20px 0;
+		}
+	}
+
+	.userInput {
+		display: flex;
+		justify-content: center;
+
+		input {
+			height: 50px;
+			width: 250px;
+		}
+
+		padding: 0 0 4px 0;
+	}
+}
+
+.footer {
+	background-color: rgb(26, 9, 48);
+	padding: 20px 48px;
+
+	p {
+		color: #fff;
+	}
+}
+
+.equationResult {
+	display: flex;
+	justify-content: center;
+	margin-top: 12px;
+
+	h2 {
+		margin-right: 12px;
+		font-size: 20px;
+	}
+}
+
+.etapas {
+	width: 100vw;
+	margin-bottom: 193px;
+
+	div {
+		display: flex;
+		justify-content: center;
+		margin: 0 12px 0 0;
+		font-size: 20px;
+	}
+
+	p {
+		margin: 0;
+		font-size: 20px;
+		font-weight: normal;
+	}
+}
+
+.userInputLimits {
+	display: flex;
+	justify-content: center;
+	gap: 16px;
+
+	.userInputLimit {
+		> div {
+			display: flex;
+			justify-content: center;
+		}
+		> input {
+			margin: 0 auto;
+			width: 116px;
+			height: 30px;
+		}
+	}
+}
