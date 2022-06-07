@@ -3,12 +3,34 @@ import styles from "./Tex.module.scss";
 import { Bhaskara, Fatorar } from "../Result/Calculator";
 
 export function Tex(props) {
-	function fatorar(fatora) {}
-
 	let finalContent = "";
 
-	const hasSlash = props.equation.includes("/");
-	const str = props.equation.split("/");
+	if (props.equation != null) {
+		const hasSlash = props.equation.includes("/");
+		const str = props.equation.split("/");
+
+		if (str[0].length > 0 && hasSlash && props.inf && props.sup) {
+			finalContent = "$$\\int_{" + props.inf + "}^{" + props.sup + "}\\frac{" + str[0] + "}{" + str[1] + "} \\ dx $$";
+		} else if (str[1] != undefined || (str[0].length > 0 && hasSlash && !props.inf && !props.sup)) {
+			finalContent = "$$\\int\\frac{" + str[0] + "}{" + str[1] + "} \\ dx $$";
+		} else if (props.inf && props.sup && str[0].length > 0) {
+			finalContent = "$$\\int_{" + props.inf + "}^{" + props.sup + "}" + props.equation + " \\ dx $$";
+		} else if (props.equation.length > 0) {
+			finalContent = "$$\\int " + props.equation + " \\ dx $$";
+		}
+
+		if (props.sup < props.inf) {
+			finalContent = "Limite superior menor que limite inferior";
+		}
+
+		return (
+			<div className={styles.texContainer}>
+				<MathJaxContext>
+					<MathJax>{finalContent}</MathJax>
+				</MathJaxContext>
+			</div>
+		);
+	}
 
 	// if (!baixo.includes("(") || (!baixo.includes(")") && baixo.includes("^"))) {
 	// 	let number = "",
@@ -33,26 +55,4 @@ export function Tex(props) {
 	// 		(number = ""), (variavel = ""), (expoente = "");
 	// 	}
 	// }
-
-	if (str[0].length > 0 && hasSlash && props.inf && props.sup) {
-		finalContent = "$$\\int_{" + props.inf + "}^{" + props.sup + "}\\frac{" + str[0] + "}{" + str[1] + "} \\ dx $$";
-	} else if (str[1] != undefined || (str[0].length > 0 && hasSlash && !props.inf && !props.sup)) {
-		finalContent = "$$\\int\\frac{" + str[0] + "}{" + str[1] + "} \\ dx $$";
-	} else if (props.inf && props.sup && str[0].length > 0) {
-		finalContent = "$$\\int_{" + props.inf + "}^{" + props.sup + "}" + props.equation + " \\ dx $$";
-	} else if (props.equation.length > 0) {
-		finalContent = "$$\\int " + props.equation + " \\ dx $$";
-	}
-
-	if (props.sup < props.inf) {
-		finalContent = "Limite superior menor que limite inferior";
-	}
-
-	return (
-		<div className={styles.texContainer}>
-			<MathJaxContext>
-				<MathJax>{finalContent}</MathJax>
-			</MathJaxContext>
-		</div>
-	);
 }

@@ -24,6 +24,7 @@ export function Fatorar(funcao) {
 	if ((a && b && c) || (a && c)) {
 		[x1, x2] = Bhaskara(a, b, c);
 
+		console.log(ConstruirFatorado(x1, x2));
 		return ConstruirFatorado(x1, x2);
 	}
 }
@@ -84,8 +85,14 @@ function PegarVariaveis(str) {
 				console.log("fdp3");
 				b += "1";
 			}
-			if (str[2] && !str[2].includes("x")) {
-				c = str[2].replaceAll("x^2", "");
+			if (str[2]) {
+				console.log("fdp4");
+				c = str[2];
+			}
+			if (c.length == 0 || (c.includes("-") && c.length <= 1)) {
+				c += "1";
+			} else if (c.includes("-") && c.length < 1) {
+				c += "1";
 			}
 		} else {
 			b = 0;

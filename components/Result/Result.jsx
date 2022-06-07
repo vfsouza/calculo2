@@ -22,6 +22,7 @@ export function Result(props) {
 			if (count >= 2 || str[1].includes("^")) {
 				resultFatorar = Fatorar(str[1]);
 				equation1 = str[0] + "/" + resultFatorar;
+				console.log(equation1);
 			} else {
 				console.log("Não é aceito equações que não sejam de primeiro e segundo grau!");
 			}
@@ -34,7 +35,7 @@ export function Result(props) {
 				<div className={styles.etapa1}>
 					<p>Primeiro devemos fatorar o divisor</p>
 				</div>
-				<Tex className={styles.equation1} equation={resultFatorar}></Tex>
+				<Tex className={styles.equation1} equation={equation1}></Tex>
 			</div>
 		);
 }
