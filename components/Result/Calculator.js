@@ -1,3 +1,10 @@
+export function Integrar(funcao) {
+	let str = Fatorar(funcao);
+	console.log("integ" + str);
+	return str;
+	// return ConstruirFatorado(a, b);
+}
+
 export function Fatorar(funcao) {
 	// b2 - 4ac
 	let str = funcao.replaceAll(" ", "").replaceAll("+", "|").replaceAll("-", "|-").split("|");
@@ -6,6 +13,7 @@ export function Fatorar(funcao) {
 		c = "",
 		x1 = 0,
 		x2 = 0;
+	console.log("fatorar:" + str);
 
 	if (str.length == 4) {
 		str[0] = str[1];
@@ -23,9 +31,10 @@ export function Fatorar(funcao) {
 
 	if ((a && b && c) || (a && c)) {
 		[x1, x2] = Bhaskara(a, b, c);
-		console.log("x1 " + x1 + " x2 " + x2);
+		console.log("fatorar x1 " + x1 + " x2 " + x2);
 
 		console.log(ConstruirFatorado(x1, x2));
+		// let integ = Integrar(ConstruirFatorado(x1, x2));
 		return ConstruirFatorado(x1, x2);
 	}
 }

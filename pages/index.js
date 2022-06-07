@@ -3,6 +3,7 @@ import { useState } from "react";
 import styles from "../styles/Home.module.scss";
 import { Tex } from "../components/Tex/Tex";
 import { Result } from "../components/Result/Result";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 export default function Home() {
 	const [equation, setEquation] = useState("");
@@ -50,9 +51,15 @@ export default function Home() {
 				</div>
 				<div className={styles.etapas}>
 					<div>
-						<h2>Etapas</h2>
+						<h2>Equação fatorada</h2>
 					</div>
 					<Result equation={equation} sup={supLim} inf={infLim}></Result>
+					<div>
+						<h2>Resultado final</h2>
+					</div>
+					<MathJaxContext>
+						<MathJax>{"$$ 4 \\ln|x-2| + 6 \\ln|x-3| + C$$"}</MathJax>
+					</MathJaxContext>
 				</div>
 			</main>
 
