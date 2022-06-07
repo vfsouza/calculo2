@@ -23,6 +23,7 @@ export function Fatorar(funcao) {
 
 	if ((a && b && c) || (a && c)) {
 		[x1, x2] = Bhaskara(a, b, c);
+		console.log("x1 " + x1 + " x2 " + x2);
 
 		console.log(ConstruirFatorado(x1, x2));
 		return ConstruirFatorado(x1, x2);
@@ -46,7 +47,7 @@ function Bhaskara(a, b, c) {
 		console.log("Equação sem raiz");
 	}
 
-	return;
+	return [x1, x2];
 }
 
 function ConstruirFatorado(x1, x2) {
@@ -62,6 +63,7 @@ function ConstruirFatorado(x1, x2) {
 }
 
 function PegarVariaveis(str) {
+	console.log(str);
 	let a = "",
 		b = "",
 		c = "";
@@ -90,8 +92,6 @@ function PegarVariaveis(str) {
 				c = str[2];
 			}
 			if (c.length == 0 || (c.includes("-") && c.length <= 1)) {
-				c += "1";
-			} else if (c.includes("-") && c.length < 1) {
 				c += "1";
 			}
 		} else {

@@ -20,6 +20,7 @@ export function Result(props) {
 			}
 
 			if (count >= 2 || str[1].includes("^")) {
+				console.log("str1 " + str[1]);
 				resultFatorar = Fatorar(str[1]);
 				equation1 = str[0] + "/" + resultFatorar;
 				console.log(equation1);
