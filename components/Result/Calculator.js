@@ -71,24 +71,19 @@ function PegarVariaveis(str) {
 		a = str[0].replaceAll("x^2", "");
 
 		if (a.length == 0 || (a.includes("-") && a.length <= 1)) {
-			console.log("fdp");
 			a += "1";
 		} else if (a.includes("-") && a.length < 1) {
-			console.log("fdp1");
 			a += "1";
 		}
 		if (str[1] && str[1].includes("x")) {
 			b = str[1].replaceAll("x", "");
 
 			if (b.length == 0 || (b.includes("-") && b.length <= 1)) {
-				console.log("fdp2");
 				b += "1";
 			} else if (b.includes("-") && b.length < 1) {
-				console.log("fdp3");
 				b += "1";
 			}
 			if (str[2]) {
-				console.log("fdp4");
 				c = str[2];
 			}
 			if (c.length == 0 || (c.includes("-") && c.length <= 1)) {

@@ -27,6 +27,8 @@ export function Result(props) {
 			} else {
 				console.log("Não é aceito equações que não sejam de primeiro e segundo grau!");
 			}
+		} else {
+			equation1 = str[0] + "/" + str[1];
 		}
 	}
 
