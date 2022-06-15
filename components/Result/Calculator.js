@@ -1,8 +1,139 @@
 export function Integrar(funcao) {
-	let str = Fatorar(funcao);
-	console.log("integ" + str);
+	console.log("INTEGRAR: ");
+	let a = 0,
+		b = 0,
+		tA,
+		x1 = 0,
+		x2 = 0,
+		str = "",
+		fatstr = "",
+		divisorA = 0,
+		divisorB = 0,
+		dividendoA = 0,
+		dividendoB = 0;
+
+	tA = funcao[1].split("x")[0].replaceAll("(", "");
+
+	if (tA == "-") tA = -1;
+
+	if (!tA) tA = 1;
+
+	tA = parseInt(tA);
+
+	console.log("integ|" + funcao[0] + "|" + funcao[1]);
+	if (funcao[1].charAt(0) != "(") {
+		[x1, x2] = Fatorar(funcao[1]);
+		console.log("TA BUG: " + funcao);
+
+		// console.log(typeof tA);
+		fatstr = ConstruirFatorado(x1, x2, tA);
+
+		divisorB = x1 * -1 * tA;
+		divisorA = x2 * -1;
+
+		// console.log("div")
+		// encontrarValoresDivisor(str);
+
+		// x1 = x1 * -1;
+		// x2 = x2 * -1;
+		console.log("tA: " + tA);
+	} else {
+		// tA = funcao[1].split("x")[0].replaceAll("(", "");
+		// if (tA == "-") tA = -1;
+
+		// if (!tA) tA = 1;
+
+		// tA = parseInt(tA);
+		console.log("tA ELSE " + tA);
+		[divisorA, divisorB] = encontrarValoresDivisor(funcao[1]);
+	}
+
+	[dividendoA, dividendoB] = encontrarValoresDividendo(funcao[0]);
+
+	console.log("dividendoA: " + dividendoA + " dividendoB: " + dividendoB);
+	console.log("divisorA: " + divisorA + ", divisorB: " + divisorB);
+	console.log("ta: " + tA);
+	a = (dividendoB - divisorB * dividendoA) / (divisorA - divisorB * tA);
+	b = dividendoA - tA * a;
+
+	console.log("a: " + a + ", b: " + b);
+
+	str = "";
+	str += a + "ln|";
+	if (tA != 1) {
+		if (tA == -1) {
+			str += "-";
+		} else {
+			str += tA;
+		}
+	}
+
+	str += "x";
+
+	if (divisorA != 0) {
+		if (divisorA > 0) str += "+";
+		str += divisorA;
+	}
+
+	str += "| ";
+
+	if (b >= 0) {
+		str += "+ ";
+	}
+
+	str += b + "ln|x";
+
+	if (divisorB != 0) {
+		if (divisorB > 0) str += "+";
+		str += divisorB;
+	}
+
+	str += "| + C";
+
+	console.log("integ1:" + str);
+
 	return str;
 	// return ConstruirFatorado(a, b);
+}
+
+function encontrarValoresDividendo(str) {
+	let valArr = str.replaceAll(" ", "").split("x");
+	console.log("valArr:" + valArr);
+	// let a = parseInt((valArr[0] == '-' ? "-1" : valArr[0]));
+
+	let a = 0;
+
+	if (!valArr[0]) {
+		a = 1;
+	} else if (valArr[0] == "-") {
+		a = -1;
+	} else {
+		a = parseInt(valArr[0]);
+	}
+
+	let b = 0;
+	if (valArr[1]) {
+		b = parseInt(valArr[1].replaceAll("+", ""));
+	}
+
+	b = !b ? 0 : b;
+
+	return [a, b];
+}
+
+function encontrarValoresDivisor(str) {
+	str = str.replaceAll("(", "").replaceAll(")", "").replaceAll(" ", "").split("x");
+	// str = str.replaceAll("(", "").replaceAll(")", "")
+	let divisorB = str[1],
+		divisorA = str[2];
+	if (!divisorB) divisorB = 0;
+	if (!divisorA) divisorA = 0;
+
+	divisorB = parseInt(divisorB);
+	divisorA = parseInt(divisorA);
+	// console.log("encdivisor: divisorB: " + divisorB + "divisorA: " + divisorA);
+
+	return [divisorA, divisorB];
 }
 
 export function Fatorar(funcao) {
@@ -33,10 +164,10 @@ export function Fatorar(funcao) {
 		[x1, x2] = Bhaskara(a, b, c);
 		console.log("fatorar x1 " + x1 + " x2 " + x2);
 
-		console.log(ConstruirFatorado(x1, x2));
+		console.log(ConstruirFatorado(x1, x2, a));
 		// let integ = Integrar(ConstruirFatorado(x1, x2));
-		return ConstruirFatorado(x1, x2);
 	}
+	return [x1, x2];
 }
 
 function Sistema(f) {}
@@ -59,16 +190,36 @@ function Bhaskara(a, b, c) {
 	return [x1, x2];
 }
 
-function ConstruirFatorado(x1, x2) {
-	if (x1 < 0 && x2 < 0) {
-		return ("(x+" + x1 + ")(x+" + x2 + ")").replaceAll("-", "");
-	} else if (x1 > 0 && x2 < 0) {
-		return "(x-" + x1 + ")" + ("(x+" + x2 + ")").replace("-", "");
-	} else if (x1 < 0 && x2 > 0) {
-		return ("(x+" + x1 + ")(x-" + x2 + ")").replace("-", "");
-	} else if (x1 > 0 && x2 > 0) {
-		return "(x-" + x1 + ")(x-" + x2 + ")";
+function ConstruirFatorado(x1, x2, a) {
+	console.log("construirFatorado|" + x1 + "|" + x1 + "|" + a);
+
+	// let str = "(" + (a == 1 ? "" : a) + "x";
+	let str = "(";
+	if (a != 1) {
+		if (a == -1) {
+			str += "-";
+		} else {
+			str += a;
+		}
 	}
+
+	str += "x";
+
+	if (x1 * -1 * a != 0) {
+		str += x1 * -1 * a > 0 ? "+" + x1 * -1 * a : x1 * -1 * a;
+	}
+
+	str += ")(x";
+
+	if (x2 * -1 != 0) {
+		str += x2 * -1 > 0 ? "+" + x2 * -1 : x2 * -1;
+	}
+	str += ")";
+	console.log(str);
+
+	return str;
+
+	// return "(" + (a == 1 ? "" : a) + "x" + ((x1*-1*a) >= 0 ? "+" + (x1*-1*a) : (x1*-1*a)) + ")(x" + ((x2*-1)>= 0 ? "+" + (x2*-1) : (x2*-1)) + ")";
 }
 
 function PegarVariaveis(str) {

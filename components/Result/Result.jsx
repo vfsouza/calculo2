@@ -19,15 +19,17 @@ export function Result(props) {
 				}
 			}
 
-			if (count >= 2 || str[1].includes("^")) {
-				console.log("str1 " + str[1]);
-				resultFatorar = Integrar(str[1]);
+			if (str.length >= 2 && (count >= 2 || str[1].includes("^"))) {
+				console.log("str1 " + str[0] + "|" + str[1]);
+				resultFatorar = Integrar(str);
+				// Integrar(() => str);
 				equation1 = str[0] + "/" + resultFatorar;
 				console.log(equation1);
 			} else {
 				console.log("Não é aceito equações que não sejam de primeiro e segundo grau!");
 			}
 		} else {
+			resultFatorar = Integrar(str);
 			equation1 = props.equation;
 		}
 	}
@@ -35,7 +37,9 @@ export function Result(props) {
 	if (props.equation)
 		return (
 			<div className={styles.container}>
-				<Tex className={styles.equation1} equation={equation1}></Tex>
+				<MathJaxContext>
+					<MathJax>{"$$" + resultFatorar + "$$"}</MathJax>
+				</MathJaxContext>
 			</div>
 		);
 }
